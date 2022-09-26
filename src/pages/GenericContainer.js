@@ -1,13 +1,12 @@
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
 function GenericContainer(props){
-    const handleHola = () => console.log('holuuuu')
     return(
-        <GenericContainerStyled className={props.openSideMenu}>
-            <ul>
+        <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
+            <ul className={props.openSideMenu ? 'show' : 'hide'}>
                 {props.menuHeader.map((item,i)=>{
                     return(
-                            <li onClick={handleHola} key={i}>{item}</li>
+                            <li key={i}>{item}</li>
                     )
                 })}
             </ul>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled, { css }from "styled-components";
+import styled from "styled-components";
 import colors from "../styles/colors";
 import icons from "../styles/icons";
 import { Button, Logo } from "../styles/styledComponents";
@@ -27,17 +27,17 @@ const ButtonHide = styled.button`
   border: 0px;
   width: 30px;
   height: 30px;
-  left: 355px;
-  top: -888px;
+  left: 398px;
+  top: -898px;
 `;
 const NameOfPage = styled.p`
 position: relative;
 margin-right: 2px;
 border: 0px;
-width: 152px;
+width: 200px;
 height: 30px;
-left: 402px;
-top: -915px;
+left: 447px;
+top: -926px;
 font-size: 22px;
 font-weight: 600;
 `;
@@ -148,10 +148,11 @@ const HeaderContainer = styled.header`
 function Menus(props){
    
   // const [openSideMenu, setOpenSideMenu] = useState('show');
-  const [content, setContent] = useState('Dashboard');
+  const [content, setContent] = useState('Travl dashboard');
 
   const toggleSideMenu = () => {
-      props.openSideMenu === 'show' ? props.setOpenSideMenu('hide') : props.setOpenSideMenu('show')}
+      props.setOpenSideMenu(prev=>prev === false)
+  }
 
   const navigate = useNavigate();
   const handleLogOut = event => {
@@ -163,7 +164,7 @@ function Menus(props){
 
   return(
       <>
-          <SideMenuContainer className={props.openSideMenu}>
+          <SideMenuContainer className={props.openSideMenu ? 'show' : 'hide'}>
           
               <Logo margin={{
               top: 0, right: '48px', bottom: '62px', left: '48px',
@@ -212,8 +213,8 @@ function Menus(props){
           <span className="sidemenu-footer__copy">© 2022 All Rights Reserved</span><br/><br/>
           <span className="sidemenu-footer__made">Made with ♥ by Maruprin</span>
           </SideMenuFooter>
-          <ButtonHide onClick={toggleSideMenu}>{icons.menu}</ButtonHide>
-          <NameOfPage>{content}</NameOfPage>
+          {props.auth && <ButtonHide onClick={toggleSideMenu}>{icons.menu}</ButtonHide>}
+          {props.auth && <NameOfPage>{content}</NameOfPage>}
       </SideMenuContainer>
 
       <HeaderContainer sidemenu={props.openSideMenu} >

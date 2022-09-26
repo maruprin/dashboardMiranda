@@ -7,13 +7,16 @@ export const GenericContainerStyled = styled.div`
   width: 80%;
   flex-direction: column;
   border-radius: 15px;
-  background-color: ${colors.white};
+  background-color: ${colors.bgGray};
   margin-top: 20px;
   &.hide{
     margin-left: 50px;
+    width: 95%;
   }
   &.show{
-    margin-left: 345px;
+    margin-left: 385px;
+    width: 70%;
+    
   }
   ul{
     display: flex;
@@ -22,22 +25,28 @@ export const GenericContainerStyled = styled.div`
     margin-top: 10px;
     padding-left:10px;
     list-style: none;
+    
+    &.show{
+      width: 55%;
+    }
   }
   li{
     width: 25%;
-    border-bottom: 1px solid ${colors.gray};
+    border-bottom: 2px solid ${colors.borderGray};
     text-align: center;
     padding: 10px;
     cursor: pointer;
+    font-weight: 600;
   }
   li:hover{
-    border-bottom: 2px solid ${colors.green};
+    border-bottom: 2px solid ${colors.hardGreen};
+    color: ${colors.hardGreen};
   }
   div.tableContainer{
     overflow-y: scroll;
     height: 500px;
     background-color: ${colors.white};
-    border: 1px solid ${colors.light};
+    border: 1px solid ${colors.bgGray};
     border-radius: 20px;
     margin-top: 30px;
     
@@ -45,10 +54,12 @@ export const GenericContainerStyled = styled.div`
       padding: 15px;
       text-align: center;
       width: 10%;
+      border-bottom: 3px solid ${colors.bgGray};
     }
     td{
       padding: 15px;
       text-align: center;
+      border-bottom: 2px solid ${colors.bgGray};
     }
     .CheckIn,.Available{
         color:${colors.hardGreen};

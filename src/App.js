@@ -29,7 +29,7 @@ function App() {
     return logState
   }
   const [auth, setAuth] = useState(isLogged());
-  const [openSideMenu, setOpenSideMenu] = useState('show');
+  const [openSideMenu, setOpenSideMenu] = useState(true);
   
   useEffect(() => {
     localStorage.setItem(logKey, JSON.stringify(auth));
@@ -39,7 +39,7 @@ function App() {
     <>
    
     <Router basename={process.env.PUBLIC_URL}>
-    <Menus openSideMenu={openSideMenu} setOpenSideMenu={setOpenSideMenu} setAuth={setAuth}/>
+    <Menus openSideMenu={openSideMenu && auth} auth={auth} setOpenSideMenu={setOpenSideMenu} setAuth={setAuth}/>
     <Routes>
       <Route path="/login" element={<Login setAuth={setAuth} />} />
       <Route path="/" element={

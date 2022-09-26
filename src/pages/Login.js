@@ -1,5 +1,6 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Logo } from "../styles/styledComponents";
 
 function Login(props) {
   const Container = styled.div`
@@ -80,7 +81,11 @@ function Login(props) {
     <Container>
       <Subcontainer>
         <Form onSubmit={handleSubmit}>
-          <img src="./src/assets/icon/user.svg" alt="" />
+          {/* <img src="../assets/images/logo.png" alt="logo" /> */}
+          <Logo margin={{
+              top: 0, right: '48px', bottom: '62px', left: '48px',
+              }}
+              /> 
           <H2>Login</H2>
           <Label>
             Email:
@@ -93,6 +98,7 @@ function Login(props) {
           <Button type="submit">
             Login
           </Button>
+          <br/><br/>
           <P>*Just click "Login" to see the demo.</P>
           </Form>
       </Subcontainer>

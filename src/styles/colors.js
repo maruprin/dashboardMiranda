@@ -12,7 +12,7 @@ const colors = {
     white: 'white',
     yellow: '#FFFF4E',
     lightYellow: '#ffffcc',
-    hardYellow: '#e6e600',
+    hardYellow: '#a4a403',
   };
   
   export default colors;

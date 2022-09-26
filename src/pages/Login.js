@@ -1,6 +1,7 @@
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Login() {
+function Login(props) {
   const Container = styled.div`
     width: 100%;
     height: 100%;
@@ -60,11 +61,25 @@ function Login() {
     font-size: 12px;
   `;
   
+  const navigate = useNavigate();
+
+  const handleSubmit = event => {
+    console.log('me apreto')
+    event.preventDefault();
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    console.log(email, password)
+    if (email === 'hello@hotelmiranda.com' && password === '1234'){
+      props.setAuth(true);
+      return navigate('/');
+      // return <Navigate to='/' />
+    }
+  }
   
   return (
     <Container>
       <Subcontainer>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <img src="./src/assets/icon/user.svg" alt="" />
           <H2>Login</H2>
           <Label>
@@ -75,7 +90,7 @@ function Login() {
             Password:
           </Label>
           <Input type="password" name="password" id="password" placeholder="password" value="1234" required />
-          <Button type="reset">
+          <Button type="submit">
             Login
           </Button>
           <P>*Just click "Login" to see the demo.</P>

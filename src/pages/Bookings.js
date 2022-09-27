@@ -1,13 +1,48 @@
+import { useState } from "react";
 import { bookingItemHaveButton, bookingsData, headersBookings, tableHeadersBookings } from "../data/bookingsData";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
 function Bookings(props) {
+    const [filteredBookingsData, setFilteredBookingsData] = useState(bookingsData)
+
+    const handleFilter = (e) =>{
+        console.log(e.target.textContent)
+        console.log(bookingsData)
+
+        if(e.target.textContent === 'All bookings'){
+            console.log(bookingsData)
+            console.log('me toco all')
+            setFilteredBookingsData(bookingsData)
+        } else if(e.target.textContent === 'Checking in'){
+            console.log('me toco active')
+            const filteredArray = bookingsData.filter((booking,i)=>{
+                return booking.Status === 'Check In';
+            })
+            setFilteredBookingsData(filteredArray)
+            console.log(filteredArray)
+        } else if(e.target.textContent === 'Checking out'){
+            console.log('me toco inactive')
+            const filteredArray = bookingsData.filter((booking,i)=>{
+                return booking.Status === 'Check Out';
+            })
+            setFilteredBookingsData(filteredArray)
+            console.log(filteredArray)
+        } else if(e.target.textContent === 'In progress'){
+            console.log('me toco in progress')
+            const filteredArray = bookingsData.filter((booking,i)=>{
+                return booking.Status === 'In Progress';
+            })
+            setFilteredBookingsData(filteredArray)
+            console.log(filteredArray)
+        }
+    }
+        
     return(
         <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
                 {headersBookings.map((item,i)=>{
                     return(
-                            <li key={i}>{item}</li>
+                            <li onClick={e=>handleFilter(e)} key={i}>{item}</li>
                     )
                 })}
             </ul>
@@ -21,7 +56,7 @@ function Bookings(props) {
                             )
                         })}
                         </tr>
-                        {bookingsData.map((item,i)=>{
+                        {filteredBookingsData.map((item,i)=>{
                             return(
                                     <tr key={i}>
                                         {tableHeadersBookings.map((header,j)=>{

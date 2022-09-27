@@ -1,13 +1,39 @@
+import { useState } from "react";
 import { headersRooms, roomsData, roomsItemHaveButton, tableHeadersRooms } from "../data/roomsData";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
 function Rooms(props) {
+    const [filteredRoomsData, setFilteredRoomsData] = useState(roomsData)
+
+    const handleFilter = (e) =>{
+        console.log('hola')
+        if(e.target.textContent === 'All rooms'){
+            console.log(roomsData)
+            console.log('me toco all')
+            setFilteredRoomsData(roomsData)
+        } else if(e.target.textContent === 'Available'){
+            console.log('me toco active')
+            const filteredArray = roomsData.filter((room,i)=>{
+                return room.Status === 'Available';
+            })
+            setFilteredRoomsData(filteredArray)
+            console.log(filteredArray)
+        } else if(e.target.textContent === 'Booked'){
+            console.log('me toco inactive')
+            const filteredArray = roomsData.filter((room,i)=>{
+                return room.Status === 'Booked';
+            })
+            setFilteredRoomsData(filteredArray)
+            console.log(filteredArray)
+        }
+        
+    }
     return(
         <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
                 {headersRooms.map((item,i)=>{
                     return(
-                            <li key={i}>{item}</li>
+                            <li onClick={e=>handleFilter(e)} key={i}>{item}</li>
                     )
                 })}
             </ul>
@@ -21,7 +47,7 @@ function Rooms(props) {
                             )
                         })}
                         </tr>
-                        {roomsData.map((item,i)=>{
+                        {filteredRoomsData.map((item,i)=>{
                             return(
                                     <tr key={i}>
                                         {tableHeadersRooms.map((header,j)=>{

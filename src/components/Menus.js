@@ -204,8 +204,8 @@ function Menus(props){
               </ul>
           <UserContainer>
           <UserPhoto />
-          <span className="sidemenu__user-name">Pablo Gutierrez</span>
-          <span className="sidemenu__email">pablogt@mymail.com</span>
+          <span className="sidemenu__user-name">Mariana Di Primio</span>
+          <span className="sidemenu__email">maruprin@mymail.com</span>
           <Button green>Editar</Button>
           </UserContainer>
           <SideMenuFooter>

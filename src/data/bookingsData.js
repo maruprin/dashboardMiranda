@@ -1,7 +1,7 @@
 export const headersBookings = [
   'All bookings', 
-  'Ckecking in',
-  'Ckecking out',
+  'Checking in',
+  'Checking out',
   'In progress' 
 ]
 

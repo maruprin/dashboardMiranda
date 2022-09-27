@@ -1,14 +1,38 @@
+import { useState } from "react";
 import { headersUsers, tableHeadersUsers, usersData, usersItemHaveButton } from "../data/usersData";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
 
 function Users(props) {
+    const [filteredUsersData, setFilteredUsersData] = useState(usersData)
+
+    const handleFilter = (e) =>{
+        if(e.target.textContent === 'All employee'){
+            console.log('me toco all')
+            setFilteredUsersData(usersData)
+        } else if(e.target.textContent === 'Active employee'){
+            console.log('me toco active')
+            const filteredArray = usersData.filter((user,i)=>{
+                return user.Status === 'Active';
+            })
+            setFilteredUsersData(filteredArray)
+            console.log(filteredArray)
+        } else if(e.target.textContent === 'Inactive employee'){
+            console.log('me toco inactive')
+            const filteredArray = usersData.filter((user,i)=>{
+                return user.Status === 'Inactive';
+            })
+            setFilteredUsersData(filteredArray)
+            console.log(filteredArray)
+        }
+        
+    }
     return(
     <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
                 {headersUsers.map((item,i)=>{
                     return(
-                            <li key={i}>{item}</li>
+                            <li onClick={e=>handleFilter(e)} key={i}>{item}</li>
                     )
                 })}
             </ul>
@@ -22,7 +46,7 @@ function Users(props) {
                             )
                         })}
                         </tr>
-                        {usersData.map((item,i)=>{
+                        {filteredUsersData.map((item,i)=>{
                             return(
                                     <tr key={i}>
                                         {tableHeadersUsers.map((header,j)=>{

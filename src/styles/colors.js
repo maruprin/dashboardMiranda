@@ -13,6 +13,8 @@ const colors = {
     yellow: '#FFFF4E',
     lightYellow: '#ffffcc',
     hardYellow: '#a4a403',
+    lightViolet: '#eee6ff',
+    hardViolet: '#884dff'
   };
   
   export default colors;

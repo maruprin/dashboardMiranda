@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import ViewRooms from './pages/ViewRooms';
-import ViewContact from './pages/ViewContact';
-import ViewUsers from './pages/ViewUsers';
+import Rooms from './pages/Rooms';
+import Contact from './pages/Contact';
+import Users from './pages/Users';
 import UpdateBooking from './components/UpdateBooking';
 import UpdateRoom from './components/UpdateRoom';
 import UpdateUser from './components/UpdateUser';
@@ -13,7 +13,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Menus from './components/Menus';
 import GenericContainer from './pages/GenericContainer';
 import { bookingItemHaveButton, bookingsData, headersBookings, tableHeadersBookings } from './data/bookingsData';
-import { headersRooms, roomsData, roomsItemHaveButton, tableHeadersRooms } from './data/roomsData';
+import Bookings from './pages/Bookings';
 
 
 
@@ -50,13 +50,7 @@ function App() {
       
       <Route path="/bookings" element={
         <PrivateRoute auth={auth}>
-          <GenericContainer menuHeader={headersBookings} 
-                            tableHeader={tableHeadersBookings} 
-                            tableData={bookingsData} 
-                            haveButton={bookingItemHaveButton}
-                            openSideMenu={openSideMenu} 
-          />
-
+          <Bookings openSideMenu={openSideMenu} />
         </PrivateRoute>} 
       />
 
@@ -68,12 +62,7 @@ function App() {
 
       <Route path="/rooms" element={
         <PrivateRoute auth={auth}>
-          <GenericContainer menuHeader={headersRooms} 
-                            tableHeader={tableHeadersRooms} 
-                            tableData={roomsData} 
-                            haveButton={roomsItemHaveButton}
-                            openSideMenu={openSideMenu} 
-          />
+          <Rooms openSideMenu={openSideMenu} />
         </PrivateRoute>} 
       />
 
@@ -85,13 +74,13 @@ function App() {
 
       <Route path="/contact" element={
         <PrivateRoute auth={auth}>
-          <ViewContact />
+          <Contact openSideMenu={openSideMenu} />
         </PrivateRoute>} 
       />
 
       <Route path="/users" element={
         <PrivateRoute auth={auth}>
-          <ViewUsers />
+          <Users openSideMenu={openSideMenu} />
         </PrivateRoute>}
       />
 

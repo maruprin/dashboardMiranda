@@ -1,10 +1,11 @@
+import { headersRooms, roomsData, roomsItemHaveButton, tableHeadersRooms } from "../data/roomsData";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
-function GenericContainer(props){
+function Rooms(props) {
     return(
         <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
-                {props.menuHeader.map((item,i)=>{
+                {headersRooms.map((item,i)=>{
                     return(
                             <li key={i}>{item}</li>
                     )
@@ -14,17 +15,17 @@ function GenericContainer(props){
                 <table>
                     <tbody>
                         <tr>
-                        {props.tableHeader.map((item,i)=>{
+                        {tableHeadersRooms.map((item,i)=>{
                             return(
                                     <th key={i}>{item}</th>
                             )
                         })}
                         </tr>
-                        {props.tableData.map((item,i)=>{
+                        {roomsData.map((item,i)=>{
                             return(
                                     <tr key={i}>
-                                        {props.tableHeader.map((header,j)=>{
-                                            if(props.haveButton.includes(header)){
+                                        {tableHeadersRooms.map((header,j)=>{
+                                            if(roomsItemHaveButton.includes(header)){
                                                 return(
                                                     <>
                                                         <td key={j}>
@@ -59,4 +60,4 @@ function GenericContainer(props){
     )
 }
 
-export default GenericContainer;
+export default Rooms;

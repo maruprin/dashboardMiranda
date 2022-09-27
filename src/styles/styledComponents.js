@@ -60,8 +60,9 @@ export const GenericContainerStyled = styled.div`
       padding: 15px;
       text-align: center;
       border-bottom: 2px solid ${colors.bgGray};
+      vertical-align: middle;
     }
-    .CheckIn,.Available{
+    .CheckIn,.Available,.Active{
         color:${colors.hardGreen};
         background-color: ${colors.lightGreen};
         padding: 10px;
@@ -70,7 +71,7 @@ export const GenericContainerStyled = styled.div`
         margin: 0 auto;
         cursor: default;
     }
-    .CheckOut,.Booked{
+    .CheckOut,.Booked,.Inactive{
         color:${colors.red};
         background-color: ${colors.lightRed};
         padding: 10px;
@@ -87,6 +88,18 @@ export const GenericContainerStyled = styled.div`
         width: 130px;
         margin: 0 auto;
         cursor: default;
+    }
+    .Archive{
+        color:${colors.hardViolet};
+        background-color: ${colors.lightViolet};
+        padding: 10px;
+        border-radius: 10px;
+        width: 130px;
+        margin: 0 auto;
+        :hover{
+          color:${colors.lightViolet};
+          background-color: ${colors.hardViolet};
+        }
     }
 }
 

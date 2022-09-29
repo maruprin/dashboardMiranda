@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { headersRooms, roomsData, roomsItemHaveButton, tableHeadersRooms } from "../data/roomsData";
-import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
+import { ButtonViewNote, FilterInput, GenericContainerStyled } from "../styles/styledComponents";
 
 function Rooms(props) {
     const [filteredRoomsData, setFilteredRoomsData] = useState(roomsData)
@@ -28,6 +28,10 @@ function Rooms(props) {
         }
         
     }
+
+    const handleTyping = (e) =>{
+        console.log(e.target.value)
+    }
     return(
         <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
@@ -35,8 +39,9 @@ function Rooms(props) {
                     return(
                             <li onClick={e=>handleFilter(e)} key={i}>{item}</li>
                     )
-                })}
-            </ul>
+                })} 
+            </ul> 
+            <FilterInput onChange={handleTyping} type="text" name="search" placeholder="search" />
             <div className="tableContainer">
                 <table>
                     <tbody>

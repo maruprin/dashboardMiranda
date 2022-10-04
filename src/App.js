@@ -11,11 +11,9 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import Menus from './components/Menus';
-import GenericContainer from './pages/GenericContainer';
-import { bookingItemHaveButton, bookingsData, headersBookings, tableHeadersBookings } from './data/bookingsData';
 import Bookings from './pages/Bookings';
 
-
+export const MyContext = React.createContext();
 
 
 function App() {
@@ -30,14 +28,16 @@ function App() {
   }
   const [auth, setAuth] = useState(isLogged());
   const [openSideMenu, setOpenSideMenu] = useState(true);
-  
+
+  const contextValue = {auth,setAuth}
+
   useEffect(() => {
     localStorage.setItem(logKey, JSON.stringify(auth));
   }, [auth]);
 
   return (
+    <MyContext.Provider value={contextValue}>
     <>
-   
     <Router basename={process.env.PUBLIC_URL}>
     <Menus openSideMenu={openSideMenu && auth} auth={auth} setOpenSideMenu={setOpenSideMenu} setAuth={setAuth}/>
     <Routes>
@@ -93,6 +93,7 @@ function App() {
     </Routes>
   </Router>
   </>
+  </MyContext.Provider>
   );
 }
 

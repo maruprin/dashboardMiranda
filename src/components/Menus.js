@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { MyContext } from "../App";
 import colors from "../styles/colors";
 import icons from "../styles/icons";
 import { Button, Logo } from "../styles/styledComponents";
@@ -150,6 +151,8 @@ function Menus(props){
   // const [openSideMenu, setOpenSideMenu] = useState('show');
   const [content, setContent] = useState('Travl dashboard');
 
+  const {auth, setAuth} = useContext(MyContext)
+
   const toggleSideMenu = () => {
       props.setOpenSideMenu(prev=>prev === false)
   }
@@ -157,7 +160,7 @@ function Menus(props){
   const navigate = useNavigate();
   const handleLogOut = event => {
       console.log(localStorage.getItem('log'))
-      props.setAuth(false);
+      setAuth(false);
       console.log(localStorage.getItem('log'))
       return navigate('/');
     }
@@ -213,8 +216,8 @@ function Menus(props){
           <span className="sidemenu-footer__copy">© 2022 All Rights Reserved</span><br/><br/>
           <span className="sidemenu-footer__made">Made with ♥ by Maruprin</span>
           </SideMenuFooter>
-          {props.auth && <ButtonHide onClick={toggleSideMenu}>{icons.menu}</ButtonHide>}
-          {props.auth && <NameOfPage>{content}</NameOfPage>}
+          {auth && <ButtonHide onClick={toggleSideMenu}>{icons.menu}</ButtonHide>}
+          {auth && <NameOfPage>{content}</NameOfPage>}
       </SideMenuContainer>
 
       <HeaderContainer sidemenu={props.openSideMenu} >

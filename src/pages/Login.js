@@ -1,5 +1,8 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AuthContext } from "../App";
+import colors from "../styles/colors";
 import { Logo } from "../styles/styledComponents";
 
 function Login(props) {
@@ -27,7 +30,7 @@ function Login(props) {
     border-radius: 12px;
   `;
   const H2 = styled.h2`
-    color: #e23428;
+    color: ${colors.red};
     line-height: 30px;
     cursor: default;
   `;
@@ -61,49 +64,69 @@ function Login(props) {
   const P = styled.p`
     font-size: 12px;
   `;
-  
-  const navigate = useNavigate();
 
-  const handleSubmit = event => {
-    console.log('me apreto')
+  const navigate = useNavigate();
+  const { authDispatch } = useContext(AuthContext);
+  const handleSubmit = (event) => {
     event.preventDefault();
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    console.log(email, password)
-    if (email === 'hello@hotelmiranda.com' && password === '1234'){
-      props.setAuth(true);
-      return navigate('/');
-      // return <Navigate to='/' />
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    if (email === "maruprin@mymail.com" && password === "1234") {
+      authDispatch({ type: "login" });
+      return navigate("/");
+    } else {
+      let errorCredenciales = document.getElementById("error");
+      errorCredenciales.style.color = colors.red;
+      errorCredenciales.style.display = "block";
+      let formLogin = document.getElementById("formLogin");
+      formLogin.reset();
     }
-  }
-  
+  };
+
   return (
     <Container>
       <Subcontainer>
-        <Form onSubmit={handleSubmit}>
-          {/* <img src="../assets/images/logo.png" alt="logo" /> */}
-          <Logo margin={{
-              top: 0, right: '48px', bottom: '62px', left: '48px',
-              }}
-              /> 
+        <Form onSubmit={handleSubmit} id="formLogin">
+          <Logo
+            margin={{
+              top: 0,
+              right: "48px",
+              bottom: "62px",
+              left: "48px",
+            }}
+          />
           <H2>Login</H2>
-          <Label>
-            Email:
-          </Label>
-          <Input type="email" name="email" id="email" placeholder="email" value="hello@hotelmiranda.com" required />
-          <Label for="">
-            Password:
-          </Label>
-          <Input type="password" name="password" id="password" placeholder="password" value="1234" required />
-          <Button type="submit">
-            Login
-          </Button>
-          <br/><br/>
-          <P>*Just click "Login" to see the demo.</P>
-          </Form>
+          <Label for="email">Email:</Label>
+          <Input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="enter your email"
+            autocomplete="off"
+            required
+          />
+          <Label for="password">Password:</Label>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="enter your password"
+            autocomplete="off"
+            required
+          />
+          <Button type="submit">Login</Button>
+          <br />
+          <p style={{ display: "none" }} id="error">
+            Credenciales incorrectas
+          </p>
+          <br />
+          <br />
+          <P>Mail: maruprin@mymail.com</P>
+          <P>Password: 1234</P>
+        </Form>
       </Subcontainer>
     </Container>
   );
-};
+}
 
 export default Login;

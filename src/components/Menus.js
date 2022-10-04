@@ -1,7 +1,8 @@
+import { useEffect, useReducer } from "react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { MyContext } from "../App";
+import { AuthContext, MyContext } from "../App";
 import colors from "../styles/colors";
 import icons from "../styles/icons";
 import { Button, Logo } from "../styles/styledComponents";
@@ -147,24 +148,19 @@ const HeaderContainer = styled.header`
 `;
 
 function Menus(props){
-   
-  // const [openSideMenu, setOpenSideMenu] = useState('show');
   const [content, setContent] = useState('Travl dashboard');
-
-  const {auth, setAuth} = useContext(MyContext)
-
+  const { authState, authDispatch } = useContext(AuthContext); 
+  useEffect(() => {
+    setContent('Travl dashboard')
+  }, [authState]);
   const toggleSideMenu = () => {
       props.setOpenSideMenu(prev=>prev === false)
   }
-
   const navigate = useNavigate();
   const handleLogOut = event => {
-      console.log(localStorage.getItem('log'))
-      setAuth(false);
-      console.log(localStorage.getItem('log'))
-      return navigate('/');
+      authDispatch({ type: "logout" })
+      return navigate('/login');
     }
-
   return(
       <>
           <SideMenuContainer className={props.openSideMenu ? 'show' : 'hide'}>
@@ -216,8 +212,8 @@ function Menus(props){
           <span className="sidemenu-footer__copy">© 2022 All Rights Reserved</span><br/><br/>
           <span className="sidemenu-footer__made">Made with ♥ by Maruprin</span>
           </SideMenuFooter>
-          {auth && <ButtonHide onClick={toggleSideMenu}>{icons.menu}</ButtonHide>}
-          {auth && <NameOfPage>{content}</NameOfPage>}
+          {authState.auth && <ButtonHide onClick={toggleSideMenu}>{icons.menu}</ButtonHide>}
+          {authState.auth &&  <NameOfPage>{content}</NameOfPage>}
       </SideMenuContainer>
 
       <HeaderContainer sidemenu={props.openSideMenu} >

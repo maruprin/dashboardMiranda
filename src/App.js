@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Rooms from './pages/Rooms';
@@ -13,79 +13,84 @@ import PrivateRoute from './components/PrivateRoute';
 import Menus from './components/Menus';
 import Bookings from './pages/Bookings';
 
-export const MyContext = React.createContext();
+export const AuthContext = React.createContext();
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'login':
+        return {...state, auth: true};
+    case 'logout':
+        return {...state, auth: false, userName: null, email: null };
+    case 'changeName':
+        return {userName: action.payload};
+    case 'changeEmail':
+        return {email: action.payload};
+    default:
+      throw new Error();
+  }
+}
 
 function App() {
   const logKey = 'log'
-  
-  const isLogged = () => {
-    let logState = JSON.parse(localStorage.getItem(logKey))
-    if(logState === null){
-      logState = false;
-    }
-    return logState
-  }
-  const [auth, setAuth] = useState(isLogged());
+  const initialState = {auth: false, userName: null, email: null };
+  const [authState, authDispatch] = useReducer(reducer, initialState);
   const [openSideMenu, setOpenSideMenu] = useState(true);
 
-  const contextValue = {auth,setAuth}
-
   useEffect(() => {
-    localStorage.setItem(logKey, JSON.stringify(auth));
-  }, [auth]);
+    localStorage.setItem(logKey, JSON.stringify(authState.auth));
+  }, [authState.auth]);
 
   return (
-    <MyContext.Provider value={contextValue}>
+    <AuthContext.Provider value={{authState, authDispatch}}>
     <>
     <Router basename={process.env.PUBLIC_URL}>
-    <Menus openSideMenu={openSideMenu && auth} auth={auth} setOpenSideMenu={setOpenSideMenu} setAuth={setAuth}/>
+    <Menus openSideMenu={openSideMenu && authState.auth} setOpenSideMenu={setOpenSideMenu}/>
     <Routes>
-      <Route path="/login" element={<Login setAuth={setAuth} />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={
-        <PrivateRoute auth={auth}>
-          <Dashboard setAuth={setAuth} />
+        <PrivateRoute>
+          <Dashboard />
         </PrivateRoute>}
       />
       
       <Route path="/bookings" element={
-        <PrivateRoute auth={auth}>
+        <PrivateRoute>
           <Bookings openSideMenu={openSideMenu} />
         </PrivateRoute>} 
       />
 
       <Route path="/bookings/:booking_id" element={
-        <PrivateRoute auth={auth}>
+        <PrivateRoute>
           <UpdateBooking />
         </PrivateRoute>} 
       />
 
       <Route path="/rooms" element={
-        <PrivateRoute auth={auth}>
+        <PrivateRoute>
           <Rooms openSideMenu={openSideMenu} />
         </PrivateRoute>} 
       />
 
       <Route path="/rooms/:room_id" element={
-        <PrivateRoute auth={auth}>
+        <PrivateRoute>
           <UpdateRoom />
         </PrivateRoute>} 
       />
 
       <Route path="/contact" element={
-        <PrivateRoute auth={auth}>
+        <PrivateRoute>
           <Contact openSideMenu={openSideMenu} />
         </PrivateRoute>} 
       />
 
       <Route path="/users" element={
-        <PrivateRoute auth={auth}>
+        <PrivateRoute>
           <Users openSideMenu={openSideMenu} />
         </PrivateRoute>}
       />
 
       <Route path="/users/:user_id" element={
-        <PrivateRoute auth={auth}>
+        <PrivateRoute>
           <UpdateUser />
         </PrivateRoute>} 
       />
@@ -93,7 +98,7 @@ function App() {
     </Routes>
   </Router>
   </>
-  </MyContext.Provider>
+  </AuthContext.Provider>
   );
 }
 

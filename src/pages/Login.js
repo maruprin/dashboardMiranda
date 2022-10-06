@@ -23,6 +23,7 @@ function Login(props) {
     transform: translate(-50%, -50%);
     padding: 10px;
     box-shadow: 0px 16px 30px #00000014;
+    border-radius: 20px;
   `;
   const Form = styled.form`
     background-color: #ffffff;
@@ -45,6 +46,8 @@ function Login(props) {
     border: none;
     outline: none;
     border-bottom: 2px solid #c5c5c5;
+    background: ${colors.white};
+    width: 100%;
   `;
   const Button = styled.button`
     display: block;
@@ -72,7 +75,7 @@ function Login(props) {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     if (email === "maruprin@mymail.com" && password === "1234") {
-      authDispatch({ type: "login" });
+      authDispatch({ type: "login", payload: { userName: "maruprin", email: email, id: 3 } });
       return navigate("/");
     } else {
       let errorCredenciales = document.getElementById("error");
@@ -96,7 +99,7 @@ function Login(props) {
             }}
           />
           <H2>Login</H2>
-          <Label for="email">Email:</Label>
+          <Label htmlFor="email">Email:</Label>
           <Input
             type="email"
             name="email"
@@ -105,7 +108,7 @@ function Login(props) {
             autocomplete="off"
             required
           />
-          <Label for="password">Password:</Label>
+          <Label htmlFor="password">Password:</Label>
           <Input
             type="password"
             name="password"

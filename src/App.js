@@ -13,32 +13,34 @@ import PrivateRoute from './components/PrivateRoute';
 import Menus from './components/Menus';
 import Bookings from './pages/Bookings';
 
-export const AuthContext = React.createContext();
+const logKey = 'log'
+const initialState = localStorage.getItem(logKey) ? JSON.parse(localStorage.getItem(logKey)) : { auth:false, userName: null, email:null, id: null };
 
 function reducer(state, action) {
+  console.log(action)
   switch (action.type) {
     case 'login':
-        return {...state, auth: true};
+        return {auth: true, userName: action.payload.userName, email: action.payload.email, id: action.payload.id};
     case 'logout':
-        return {...state, auth: false, userName: null, email: null };
+        localStorage.removeItem(logKey);
+        return {auth: false, userName: null, email: null, id: null };
     case 'changeName':
-        return {userName: action.payload};
+        return {...state, userName: action.payload.userName};
     case 'changeEmail':
-        return {email: action.payload};
+        return {...state, email: action.payload.email};
     default:
       throw new Error();
   }
 }
+export const AuthContext = React.createContext();
 
 function App() {
-  const logKey = 'log'
-  const initialState = {auth: false, userName: null, email: null };
   const [authState, authDispatch] = useReducer(reducer, initialState);
   const [openSideMenu, setOpenSideMenu] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem(logKey, JSON.stringify(authState.auth));
-  }, [authState.auth]);
+    if(authState.auth){localStorage.setItem(logKey, JSON.stringify(authState));}
+  }, [authState]);
 
   return (
     <AuthContext.Provider value={{authState, authDispatch}}>

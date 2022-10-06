@@ -1,7 +1,17 @@
-import { contactData, contactItemHaveButton, headersContact, tableHeadersContact } from "../data/contactData";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { contactItemHaveButton, headersContact, tableHeadersContact } from "../data/contactData";
+import { fetchContacts, selectContacts } from "../slices/contactSlice";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
 function Contact(props) {
+    const contactsList = useSelector(selectContacts);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(fetchContacts());
+    },[dispatch]);
+
     return(
     <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
@@ -21,9 +31,9 @@ function Contact(props) {
                             )
                         })}
                         </tr>
-                        {contactData.map((item,i)=>{
+                        {contactsList.map((item,i)=>{
                             return(
-                                    <tr key={i}>
+                                    <tr key={item.id}>
                                         {tableHeadersContact.map((header,j)=>{
                                             if(contactItemHaveButton.includes(header)){
                                                 return(

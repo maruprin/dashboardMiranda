@@ -1,39 +1,40 @@
-import { useState } from "react";
-import { bookingItemHaveButton, bookingsData, headersBookings, tableHeadersBookings } from "../data/bookingsData";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { bookingItemHaveButton, headersBookings, tableHeadersBookings } from "../data/bookingsData";
+import { fetchBookings, selectBookings } from "../slices/bookingsSlice";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
 function Bookings(props) {
-    const [filteredBookingsData, setFilteredBookingsData] = useState(bookingsData)
+    const bookingsList = useSelector(selectBookings)
+    const [filteredBookingsData, setFilteredBookingsData] = useState([])
+    const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBookings());
+  }, [dispatch, filteredBookingsData]);
+
+  useEffect(() => {
+    setFilteredBookingsData(bookingsList);
+  }, [bookingsList]);
 
     const handleFilter = (e) =>{
-        console.log(e.target.textContent)
-        console.log(bookingsData)
-
         if(e.target.textContent === 'All bookings'){
-            console.log(bookingsData)
-            console.log('me toco all')
-            setFilteredBookingsData(bookingsData)
+            setFilteredBookingsData(bookingsList)
         } else if(e.target.textContent === 'Checking in'){
-            console.log('me toco active')
-            const filteredArray = bookingsData.filter((booking,i)=>{
+            const filteredArray = bookingsList.filter((booking,i)=>{
                 return booking.Status === 'Check In';
             })
             setFilteredBookingsData(filteredArray)
-            console.log(filteredArray)
         } else if(e.target.textContent === 'Checking out'){
-            console.log('me toco inactive')
-            const filteredArray = bookingsData.filter((booking,i)=>{
+            const filteredArray = bookingsList.filter((booking,i)=>{
                 return booking.Status === 'Check Out';
             })
             setFilteredBookingsData(filteredArray)
-            console.log(filteredArray)
         } else if(e.target.textContent === 'In progress'){
-            console.log('me toco in progress')
-            const filteredArray = bookingsData.filter((booking,i)=>{
+            const filteredArray = bookingsList.filter((booking,i)=>{
                 return booking.Status === 'In Progress';
             })
             setFilteredBookingsData(filteredArray)
-            console.log(filteredArray)
         }
     }
         

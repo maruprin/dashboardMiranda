@@ -1,29 +1,35 @@
-import { useState } from "react";
-import { headersUsers, tableHeadersUsers, usersData, usersItemHaveButton } from "../data/usersData";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { headersUsers, tableHeadersUsers, usersItemHaveButton } from "../data/usersData";
+import { fetchUsers, selectUsers } from "../slices/usersSlice";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
 
 function Users(props) {
-    const [filteredUsersData, setFilteredUsersData] = useState(usersData)
+    const [filteredUsersData, setFilteredUsersData] = useState([])
+    const usersList = useSelector(selectUsers);
+    const dispatch = useDispatch();
+    
+    useEffect(()=>{
+        dispatch(fetchUsers())
+    }, [dispatch]);
+    useEffect(()=>{
+        setFilteredUsersData(usersList);
+    },[usersList])
 
     const handleFilter = (e) =>{
         if(e.target.textContent === 'All employee'){
-            console.log('me toco all')
-            setFilteredUsersData(usersData)
+            setFilteredUsersData(usersList)
         } else if(e.target.textContent === 'Active employee'){
-            console.log('me toco active')
-            const filteredArray = usersData.filter((user,i)=>{
+            const filteredArray = usersList.filter((user,i)=>{
                 return user.Status === 'Active';
             })
             setFilteredUsersData(filteredArray)
-            console.log(filteredArray)
         } else if(e.target.textContent === 'Inactive employee'){
-            console.log('me toco inactive')
-            const filteredArray = usersData.filter((user,i)=>{
+            const filteredArray = usersList.filter((user,i)=>{
                 return user.Status === 'Inactive';
             })
             setFilteredUsersData(filteredArray)
-            console.log(filteredArray)
         }
         
     }
@@ -32,7 +38,7 @@ function Users(props) {
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
                 {headersUsers.map((item,i)=>{
                     return(
-                            <li onClick={e=>handleFilter(e)} key={i}>{item}</li>
+                            <li onClick={e=>handleFilter(e)} key={item}>{item}</li>
                     )
                 })}
             </ul>

@@ -14,7 +14,8 @@ const colors = {
     lightYellow: '#ffffcc',
     hardYellow: '#a4a403',
     lightViolet: '#eee6ff',
-    hardViolet: '#884dff'
+    hardViolet: '#884dff',
+    redLess: "#e0564c",
   };
   
   export default colors;

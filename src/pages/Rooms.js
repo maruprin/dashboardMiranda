@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   headersRooms,
   roomsItemHaveButton,
   tableHeadersRooms,
 } from "../data/roomsData";
-import { fetchRooms, selectRooms } from "../slices/roomsSlice";
+import { deleteRoom, fetchRoom, fetchRooms, selectRoom, selectRooms, updateRoom } from "../slices/roomsSlice";
 import {
   ButtonViewNote,
   FilterInput,
@@ -16,6 +17,7 @@ function Rooms(props) {
   const [filteredRoomsData, setFilteredRoomsData] = useState([]);
   const roomsList = useSelector(selectRooms);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchRooms());
   }, [dispatch]);
@@ -23,6 +25,7 @@ function Rooms(props) {
   useEffect(() => {
     setFilteredRoomsData(roomsList);
   }, [roomsList]);
+
   const handleFilter = (e) => {
     if (e.target.textContent === "All rooms") {
       setFilteredRoomsData(roomsList);
@@ -39,8 +42,13 @@ function Rooms(props) {
     }
   };
   const handleTyping = (e) => {
-    console.log(e.target.value);
+    console.log(e);
   };
+  const handleClick = (id) =>{
+    const roomPathId = id
+    navigate("/rooms/"+roomPathId)
+  }
+  
   return (
     <GenericContainerStyled className={props.openSideMenu ? "show" : "hide"}>
       <ul className={props.openSideMenu ? "show" : "hide"}>
@@ -68,7 +76,7 @@ function Rooms(props) {
             </tr>
             {filteredRoomsData.map((item, i) => {
               return (
-                <tr key={item.id}>
+                <tr onClick={()=>handleClick(item["Room Id"])} key={item.id}>
                   {tableHeadersRooms.map((header, j) => {
                     if (roomsItemHaveButton.includes(header)) {
                       return (

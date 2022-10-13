@@ -22,7 +22,6 @@ function reducer(state, action) {
     case 'login':
         return {auth: true, userName: action.payload.userName, email: action.payload.email, id: action.payload.id};
     case 'logout':
-        localStorage.removeItem(logKey);
         return {auth: false, userName: null, email: null, id: null };
     case 'changeName':
         return {...state, userName: action.payload.userName};
@@ -39,7 +38,7 @@ function App() {
   const [openSideMenu, setOpenSideMenu] = useState(true);
 
   useEffect(() => {
-    if(authState.auth){localStorage.setItem(logKey, JSON.stringify(authState));}
+    localStorage.setItem(logKey, JSON.stringify(authState));
   }, [authState]);
 
   return (
@@ -51,7 +50,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={
         <PrivateRoute>
-          <Dashboard />
+          <Dashboard openSideMenu={openSideMenu} />
         </PrivateRoute>}
       />
       

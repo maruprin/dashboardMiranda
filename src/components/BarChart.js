@@ -4,24 +4,68 @@ import * as d3 from "d3";
 import { useEffect } from "react";
 import colors from "../styles/colors";
 import styled from "styled-components";
+import { useRef } from "react";
+import { useState } from "react";
 
-  const BarChartContainer = styled.div`
-    width:50%;
-    height: 600px;
-    background-color: ${colors.white};
-    margin-top: 50px;
-    border-radius: 20px;
-    display: inline-block;
-    .hoverBar {
+const BarChartContainer = styled.div`
+  width: 50%;
+  height: 600px;
+  background-color: ${colors.white};
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 20px;
+  display: inline-block;
+  overflow: auto;
+  padding: 40px;
+  .hoverBar {
     fill: ${colors.lightViolet};
   }
-  `;
+`;
 
-function BarChart(props) {
-    console.log(props.chartData)
-useEffect(() => {
-
-    //titulos del eje x
+function BarChart() {
+  const svgRef = useRef();
+  const [data] = useState([10, 20, 30, 40, 50, 60]);
+  const [data2] = useState([90, 80, 40, 20, 30, 70]);
+  const [data3] = useState([
+    {
+      day: "Friday",
+      sales: 1000,
+      occupancy: 40,
+    },
+    {
+      day: "Saturday",
+      sales: 2345,
+      occupancy: 50,
+    },
+    {
+      day: "Sunday",
+      sales: 3422,
+      occupancy: 30,
+    },
+    {
+      day: "Monday",
+      sales: 2300,
+      occupancy: 70,
+    },
+    {
+      day: "Tuesday",
+      sales: 1450,
+      occupancy: 10,
+    },
+    {
+      day: "Wednesday",
+      sales: 2130,
+      occupancy: 20,
+    },
+    {
+      day: "Thursday",
+      sales: 1200,
+      occupancy: 10,
+    },
+  ]);
+  useEffect(() => {
+    console.log(data3.map((v, i) => v.sales));
+    console.log(data3.map((v, i) => v.occupancy));
     const days = [
       "Monday",
       "Tuesday",
@@ -31,127 +75,57 @@ useEffect(() => {
       "Saturday",
       "Sunday",
     ];
-    //margenes para ubicar grafico dentro de contenedor
-    const margin = {
-      left: 60,
-      top: 30,
-      right: 40,
-      bottom: 70,
-    };
-    const width = props.w - margin.left - margin.right;
-    const height = props.h - margin.top - margin.bottom;
-
+    const w = 500;
+    const h = 500;
     const svg = d3
-      .select("#chartContainer")
-      .append("svg")
-      .attr("width", props.w)
-      .attr("height", props.h);
-    //definicion del eje x
-    const xScale = d3.scaleBand().range([0, width]).domain(days).padding(0.4);
-    //definicion del eje y principal
-    const yScaleLeft = d3.scaleLinear().range([height, 0]).domain([0, 5000]);
-    //definicion del eje y secundario
-    const yScaleRight = d3.scaleLinear().range([height, 0]).domain([0, 100]);
+      .select(svgRef.current)
+      .attr("width", w)
+      .attr("height", h)
+      .attr("color", colors.gray)
+      .attr("overflow", "visible")
+      .style("margin", 50);
+    const xScale = d3
+      .scaleBand()
+      .domain(data3.map((val, i) => i))
+      .range([0, w])
+      .padding([0.6]);
 
-    //creamos y posicionamos una etiqueta g dentro del svg
-    const g = svg
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`);
+    const yScale = d3.scaleLinear().domain([0, 4000]).range([h, 0]);
+    const yScaleR = d3.scaleLinear().domain([0, 100]).range([h, 0]);
+    const xAxis = d3.axisBottom(xScale);
+    const yAxisL = d3.axisLeft(yScale).ticks(10);
+    const yAxisR = d3.axisRight(yScaleR).ticks(10);
 
-    //creamos y posicionamos una etiqueta g dentro del anterior g
-    g.append("g")
-      .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(xScale))
-      .selectAll(".tick")
-      .style("stroke-width", 0);
+    svg.append("g").call(xAxis).attr("transform", `translate(0,${h})`);
 
-      const gAxisLeft = g.append('g')
-      .call(d3.axisLeft(yScaleLeft).tickFormat((d) => `${d}€`))
-      .selectAll('.domain')
-      .style('stroke-width', 0);
+    svg.append("g").call(yAxisL);
+    svg.append("g").call(yAxisR).attr("transform", `translate(${w})`);
+    // d3.scalePoint().domain(['Apples','Oranges','Pears','Plums']).range([0,chartWidth]);
+    svg
+      .selectAll(".bar")
+      .data(data3.map((v, i) => v.sales))
+      .join("rect")
+      .attr("fill", colors.redLess)
+      .attr("x", (val, i) => xScale(i))
+      .attr("y", yScale)
+      .attr("width", xScale.bandwidth() / 3)
+      .attr("height", (val) => h - yScale(val));
 
-      gAxisLeft.selectAll('g.tick')
-      .style('stroke-width', 0);
-      
-      g.append('g')
-      .attr('transform', `translate(${width}, 0)`)
-      .call(d3.axisRight(yScaleRight).tickFormat((d) => `${d}%`))
-      .selectAll('.domain')
-      .style('stroke-width', 0);
+    svg
+      .selectAll(".bar2")
+      .data(data3.map((v, i) => v.occupancy))
+      .join("rect")
+      .attr("fill", colors.green)
+      .attr("x", (val, i) => xScale(i) + 20)
+      .attr("y", yScale)
+      .attr("width", xScale.bandwidth() / 3)
+      .attr("height", (val) => h - yScale(val));
+  }, [data3]);
 
-
-// Hover functions
-
-function onMouseOverSales(d, i) {
-    d3.select(this).attr('class', 'hoverBar');
-    g.append('text')
-      .attr('class', 'val')
-      .attr('x', () => {
-        const day = new Date(i.day);
-        return xScale(days[
-          day.getDay() - 1 < 0 ? 6 : day.getDay() - 1
-        ]) - 10;
-      })
-      .attr('y', () => yScaleLeft(i.value) - 10)
-      .text(`${i.value}€`);
-  }
-
-  function onMouseOverOccupation(d, i) {
-    d3.select(this).attr('class', 'hoverBar');
-    g.append('text')
-      .attr('class', 'val')
-      .attr('x', () => {
-        const day = new Date(i.day);
-        return xScale(days[
-          day.getDay() - 1 < 0 ? 6 : day.getDay() - 1
-        ]) + 29;
-      })
-      .attr('y', () => yScaleRight(i.value) - 10)
-      .text(`${i.value}%`);
-  }
-
-  function onMouseOut(d, i) {
-    d3.select(this)
-      .attr('class', '');
-
-    d3.selectAll('.val').remove();
-  }
-
-  //
-
-  const gSales = g.append('g');
-  gSales.selectAll('rect')
-    .data(props.chartData.sales)
-    .enter().append('rect')
-    .attr('pointer-events', 'all')
-    .on('mouseover', onMouseOverSales)
-    .on('mouseout', onMouseOut)
-    .attr('x', (d, i) => xScale(days[i]))
-    .attr('y', (d, i) => yScaleLeft(d.value))
-    .attr('width', 20)
-    .attr('height', (d, i) => height - yScaleLeft(d.value))
-    .attr('fill', colors.lightGreen);
-
-  const gOccupation = g.append('g');
-  gOccupation.selectAll('rect')
-    .data(props.chartData.occupation)
-    .enter().append('rect')
-    .attr('pointer-events', 'all')
-    .on('mouseover', onMouseOverOccupation)
-    .on('mouseout', onMouseOut)
-    .attr('x', (d, i) => xScale(days[i]))
-    .attr('y', (d, i) => yScaleRight(d.value))
-    .attr('width', 20)
-    .attr('height', (d, i) => height - yScaleRight(d.value))
-    .attr('transform', 'translate(29,0)')
-    .attr('fill', colors.lightRed);
-
-  return () => {
-        const barChartContainer = document.querySelector('#barChartContainer');
-        if (barChartContainer) barChartContainer.innerHTML = '';
-  };
-}, []);
-
-  return <BarChartContainer id="barChartContainer"/>;
+  return (
+    <BarChartContainer>
+      <svg ref={svgRef}></svg>
+    </BarChartContainer>
+  );
 }
 export default BarChart;

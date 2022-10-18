@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import BarchartPrueba from "../components/BarchartPrueba";
 import BarChart from "../components/BarChart";
 import Calendar from "../components/Calendar";
 import chartData from "../data/chartData";
@@ -26,7 +27,7 @@ function Dashboard(props) {
     <GenericContainerStyled className={props.openSideMenu ? "show" : "hide"}>
     <DashboardContainer className={props.openSideMenu ? "show" : "hide"}>
       <Calendar />
-      <BarChart chartData={chartData} h={500} w={600} />
+      <BarChart />
     </DashboardContainer>
     </GenericContainerStyled>
   );

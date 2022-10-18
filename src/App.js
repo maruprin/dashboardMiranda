@@ -17,7 +17,6 @@ const logKey = 'log'
 const initialState = localStorage.getItem(logKey) ? JSON.parse(localStorage.getItem(logKey)) : { auth:false, userName: null, email:null, id: null };
 
 function reducer(state, action) {
-  console.log(action)
   switch (action.type) {
     case 'login':
         return {auth: true, userName: action.payload.userName, email: action.payload.email, id: action.payload.id};

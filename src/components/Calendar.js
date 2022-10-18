@@ -68,6 +68,9 @@ margin: 5px;
 .fc-daygrid-day .fc-day .fc-day-sun .fc-day-past{
     background-color: ${colors.lightViolet};
 } 
+.cyAvEM .fc .fc-daygrid-day-number:hover{
+  color: black;
+}
 `;
 
 function Calendar() {

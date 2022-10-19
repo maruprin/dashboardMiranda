@@ -17,6 +17,10 @@ const BarChartContainer = styled.div`
   display: inline-block;
   overflow: auto;
   padding: 40px;
+  box-shadow: 0px 5px 8px #00000028;
+  :hover {
+    box-shadow: 0px 7px 20px #00000048;
+  }
   .hoverBar {
     fill: ${colors.lightViolet};
   }
@@ -30,37 +34,37 @@ function BarChart() {
     {
       day: "Friday",
       sales: 1000,
-      occupancy: 40,
+      occupancy: 1400,
     },
     {
       day: "Saturday",
       sales: 2345,
-      occupancy: 50,
+      occupancy: 1500,
     },
     {
       day: "Sunday",
       sales: 3422,
-      occupancy: 30,
+      occupancy: 3300,
     },
     {
       day: "Monday",
       sales: 2300,
-      occupancy: 70,
+      occupancy: 2000,
     },
     {
       day: "Tuesday",
       sales: 1450,
-      occupancy: 10,
+      occupancy: 1100,
     },
     {
       day: "Wednesday",
       sales: 2130,
-      occupancy: 20,
+      occupancy: 2200,
     },
     {
       day: "Thursday",
       sales: 1200,
-      occupancy: 10,
+      occupancy: 1100,
     },
   ]);
   useEffect(() => {

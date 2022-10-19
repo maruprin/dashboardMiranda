@@ -1,13 +1,28 @@
 import styled from "styled-components";
 import BarChart from "../components/BarChart";
 import Calendar from "../components/Calendar";
-import chartData from "../data/chartData";
+import Kpis from "../components/KPIS";
 import { GenericContainerStyled } from "../styles/styledComponents";
 const DashboardContainer = styled.div`
 width: 100%;
 display: flex;
+flex-direction: column;
+
+&.hide{
+    margin: 0 auto;
+  }
+  &.show{
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 100%;
+    
+  }
+`
+const CalendarBarChartContainer = styled.div`
+width: 100%;
+display: flex;
 flex-direction: row;
-gap: 100px;
+gap: 50px;
 margin: 0 auto;
 justify-content: space-around;
 &.hide{
@@ -25,8 +40,11 @@ function Dashboard(props) {
   return (
     <GenericContainerStyled className={props.openSideMenu ? "show" : "hide"}>
     <DashboardContainer className={props.openSideMenu ? "show" : "hide"}>
+      <Kpis />
+      <CalendarBarChartContainer>
       <Calendar />
       <BarChart />
+      </CalendarBarChartContainer>
     </DashboardContainer>
     </GenericContainerStyled>
   );

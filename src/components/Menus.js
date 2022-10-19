@@ -219,9 +219,9 @@ function Menus(props){
       <HeaderContainer sidemenu={props.openSideMenu} >
     
       <div className="header__right">
-          <button type="button">{icons.message}</button>
-          <button type="button">{icons.bell}</button>
-          <button type="button" onClick={handleLogOut}>{icons.logout}</button>
+      <Link to="/contact"><button type="button">{icons.message}</button></Link>
+      <Link to="/bookings"><button type="button">{icons.bell}</button></Link>
+      <button type="button" onClick={handleLogOut}>{icons.logout}</button>
       </div>
       </HeaderContainer>
 

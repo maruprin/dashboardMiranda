@@ -44,7 +44,7 @@ export const GenericContainerStyled = styled.div`
   }
   div.tableContainer{
     overflow-y: scroll;
-    height: 500px;
+    height: 600px;
     background-color: ${colors.white};
     border: 1px solid ${colors.bgGray};
     border-radius: 20px;

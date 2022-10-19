@@ -147,6 +147,23 @@ const HeaderContainer = styled.header`
   }
 `;
 
+const HeaderLinks = styled(Link)`
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: ${colors.hardGreen};
+  //background-color: ${colors.lightGreen};
+  border-radius: 18px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 auto;
+  //border: 1px solid;
+  margin-right: 10px;
+  :hover {
+    box-shadow: 0px 4px 4px #00000018;
+  }
+`
+
 function Menus(props){
   const [content, setContent] = useState('Travl dashboard');
   const { authState, authDispatch } = useContext(AuthContext); 
@@ -219,9 +236,9 @@ function Menus(props){
       <HeaderContainer sidemenu={props.openSideMenu} >
     
       <div className="header__right">
-      <Link to="/contact"><button type="button">{icons.message}</button></Link>
-      <Link to="/bookings"><button type="button">{icons.bell}</button></Link>
-      <button type="button" onClick={handleLogOut}>{icons.logout}</button>
+      <HeaderLinks to="/contact">{icons.message}</HeaderLinks>
+      <HeaderLinks to="/bookings">{icons.bell}</HeaderLinks>
+      <HeaderLinks onClick={handleLogOut}>{icons.logout}</HeaderLinks>
       </div>
       </HeaderContainer>
 

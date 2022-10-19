@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import BarchartPrueba from "../components/BarchartPrueba";
 import BarChart from "../components/BarChart";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/Calendar.tsx";
 import chartData from "../data/chartData";
 import { GenericContainerStyled } from "../styles/styledComponents";
 const DashboardContainer = styled.div`

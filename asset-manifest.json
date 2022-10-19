@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dashboardMiranda/static/css/main.27b89a3f.css",
-    "main.js": "/dashboardMiranda/static/js/main.97d7c5e4.js",
+    "main.css": "/dashboardMiranda/static/css/main.13e472e9.css",
+    "main.js": "/dashboardMiranda/static/js/main.92f59bc3.js",
     "static/media/usersIcon.svg": "/dashboardMiranda/static/media/usersIcon.618d9c53403ec5684170019a13192c7c.svg",
     "static/media/dashboardIcon.svg": "/dashboardMiranda/static/media/dashboardIcon.2a76cd0a9f57ea4230825ee9eb5caf49.svg",
     "index.html": "/dashboardMiranda/index.html",
@@ -19,11 +19,11 @@
     "static/media/leftArrow.svg": "/dashboardMiranda/static/media/leftArrow.06d755b1dcdb249e2d9a5e199f709192.svg",
     "static/media/rightArrow.svg": "/dashboardMiranda/static/media/rightArrow.954170a217693baef5a81ae3c80143da.svg",
     "static/media/messageIcon.svg": "/dashboardMiranda/static/media/messageIcon.003b8000ce72427d6ce5d4ca1ba80f88.svg",
-    "main.27b89a3f.css.map": "/dashboardMiranda/static/css/main.27b89a3f.css.map",
-    "main.97d7c5e4.js.map": "/dashboardMiranda/static/js/main.97d7c5e4.js.map"
+    "main.13e472e9.css.map": "/dashboardMiranda/static/css/main.13e472e9.css.map",
+    "main.92f59bc3.js.map": "/dashboardMiranda/static/js/main.92f59bc3.js.map"
   },
   "entrypoints": [
-    "static/css/main.27b89a3f.css",
-    "static/js/main.97d7c5e4.js"
+    "static/css/main.13e472e9.css",
+    "static/js/main.92f59bc3.js"
   ]
 }

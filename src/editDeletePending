@@ -1,0 +1,21 @@
+const handleEdit = (i) =>{
+    console.log(i)
+    const prueba = {
+      "Room Id": 1,
+      "Room Number": 216,
+      "Facilities": "bar",
+      "Bed Type": "Single Bed",
+      "Status": "Available",
+      "Rate": 300,
+      "description": "quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi",
+      "Offer": 86,
+      "discount": 330,
+      "Room Name": "Mariana"
+    }
+    dispatch(updateRoom(prueba));
+    const roomPathId = i
+    navigate("/rooms/"+roomPathId)
+  }
+  const handleDelete = (i) =>{
+    dispatch(deleteRoom(i));
+  }

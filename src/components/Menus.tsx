@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { AuthContext, MyContext } from "../App";
+import { AuthContext, MyContext } from "../App.tsx";
 import colors from "../styles/colors";
 import icons from "../styles/icons";
 import { Button, Logo } from "../styles/styledComponents";

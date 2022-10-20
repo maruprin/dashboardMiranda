@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { AuthContext } from "../App";
+import { AuthContext } from "../App.tsx";
 import colors from "../styles/colors";
 import { Logo } from "../styles/styledComponents";
 

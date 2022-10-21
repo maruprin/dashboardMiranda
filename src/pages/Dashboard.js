@@ -7,9 +7,11 @@ const DashboardContainer = styled.div`
 width: 100%;
 display: flex;
 flex-direction: column;
-
+margin-bottom: 100px;
 &.hide{
     margin: 0 auto;
+    margin-left: -16px;
+    margin-bottom: 100px;
   }
   &.show{
     margin-left: 5%;
@@ -21,19 +23,10 @@ flex-direction: column;
 const CalendarBarChartContainer = styled.div`
 width: 100%;
 display: flex;
+flex-wrap: wrap;
 flex-direction: row;
 gap: 50px;
-margin: 0 auto;
 justify-content: space-around;
-&.hide{
-    margin: 0 auto;
-  }
-  &.show{
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 100%;
-    
-  }
 `
 function Dashboard(props) {
   
@@ -41,7 +34,7 @@ function Dashboard(props) {
     <GenericContainerStyled className={props.openSideMenu ? "show" : "hide"}>
     <DashboardContainer className={props.openSideMenu ? "show" : "hide"}>
       <Kpis />
-      <CalendarBarChartContainer>
+      <CalendarBarChartContainer >
       <Calendar />
       <BarChart />
       </CalendarBarChartContainer>

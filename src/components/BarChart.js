@@ -6,17 +6,18 @@ import colors from "../styles/colors";
 import styled from "styled-components";
 import { useRef } from "react";
 import { useState } from "react";
+import { AuthContext } from "../App";
 
 const BarChartContainer = styled.div`
-  width: 50%;
-  height: 600px;
+  min-width: 600px;
+  flex: 1;
   background-color: ${colors.white};
-  margin: 0 auto;
   margin-top: 50px;
   border-radius: 20px;
-  display: inline-block;
+  display: flex;
   overflow: auto;
   padding: 40px;
+  position: relative;
   box-shadow: 0px 5px 8px #00000028;
   :hover {
     box-shadow: 0px 7px 20px #00000048;
@@ -26,6 +27,9 @@ const BarChartContainer = styled.div`
   }
 `;
 const LegendContainer = styled.div`
+position: absolute;
+left: 50%;
+top: 20px;
   display: flex;
   margin-top: 30px;
   margin-right: 60px;
@@ -42,7 +46,13 @@ const SquareColor = styled.div`
   margin-right: 8px;
   background-color: ${(props) => props.color};
 `;
+
+
 function BarChart() {
+  
+  const styleSVG = {
+  margin: '0 auto',
+}
   const svgRef = useRef();
   const [data] = useState([10, 20, 30, 40, 50, 60]);
   const [data2] = useState([90, 80, 40, 20, 30, 70]);
@@ -103,7 +113,7 @@ function BarChart() {
       .attr("height", h)
       .attr("color", colors.gray)
       .attr("overflow", "visible")
-      .style("margin", 50);
+      .style("margin", 'auto auto');
     const xScale = d3
       .scaleBand()
       .domain(data3.map((val, i) => i))
@@ -154,7 +164,7 @@ function BarChart() {
           Ocuppancy
         </LegendInformation>
       </LegendContainer>
-      <svg ref={svgRef}></svg>
+      <svg style={styleSVG} ref={svgRef}></svg>
     </BarChartContainer>
   );
 }

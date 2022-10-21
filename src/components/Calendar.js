@@ -2,17 +2,17 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
 import colors from "../styles/colors";
-
+ 
 const CalendarContainer = styled.div`
-  width: 50%;
+  min-width: 600px;
   background-color: ${colors.white};
   margin-top: 50px;
   border-radius: 20px;
-  padding: 30px;
+  padding: 41px;
   display: inline-block;
+  flex: 1;
   font-family: "Poppins", sans-serif;
   box-shadow: 0px 5px 8px #00000028;
-  max-height: 600px;
   :hover {
     box-shadow: 0px 7px 20px #00000048;
   }
@@ -53,6 +53,9 @@ const CalendarContainer = styled.div`
   }
   .fc .fc-scroller-harness {
     color: ${colors.hardGreen};
+  }
+  .fc .fc-view-harness{
+    height: 500px;
   }
   .fc .fc-scrollgrid-liquid {
     border-radius: 12px;

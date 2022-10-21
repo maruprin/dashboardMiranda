@@ -25,7 +25,23 @@ const BarChartContainer = styled.div`
     fill: ${colors.lightViolet};
   }
 `;
-
+const LegendContainer = styled.div`
+  display: flex;
+  margin-top: 30px;
+  margin-right: 60px;
+  float: right;
+`;
+const LegendInformation = styled.div`
+  display: flex;
+  margin-right: 20px;
+`;
+const SquareColor = styled.div`
+  width: 10px;
+  height: 10px;
+  margin-top: 8px;
+  margin-right: 8px;
+  background-color: ${(props) => props.color};
+`;
 function BarChart() {
   const svgRef = useRef();
   const [data] = useState([10, 20, 30, 40, 50, 60]);
@@ -128,6 +144,16 @@ function BarChart() {
 
   return (
     <BarChartContainer>
+      <LegendContainer>
+        <LegendInformation>
+          <SquareColor color="#e0564c" />
+          Sales
+        </LegendInformation>
+        <LegendInformation>
+          <SquareColor color="#799283" />
+          Ocuppancy
+        </LegendInformation>
+      </LegendContainer>
       <svg ref={svgRef}></svg>
     </BarChartContainer>
   );

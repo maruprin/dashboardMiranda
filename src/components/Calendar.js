@@ -12,6 +12,7 @@ const CalendarContainer = styled.div`
   display: inline-block;
   font-family: "Poppins", sans-serif;
   box-shadow: 0px 5px 8px #00000028;
+  max-height: 600px;
   :hover {
     box-shadow: 0px 7px 20px #00000048;
   }
@@ -71,6 +72,7 @@ const CalendarContainer = styled.div`
   .fc-daygrid-day .fc-day .fc-day-sun .fc-day-past {
     background-color: ${colors.lightViolet};
   }
+ 
 `;
 
 function Calendar() {

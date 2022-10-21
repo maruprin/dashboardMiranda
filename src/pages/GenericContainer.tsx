@@ -1,6 +1,14 @@
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
-function GenericContainer(props){
+interface PropsGeneric {
+    openSideMenu: boolean;
+    menuHeader: string[];
+    tableHeader: string[];
+    tableData: string[];
+    haveButton:string;
+  }
+
+function GenericContainer(props:PropsGeneric){
     return(
         <GenericContainerStyled className={props.openSideMenu ? 'show' : 'hide'}>
             <ul className={props.openSideMenu ? 'show' : 'hide'}>
@@ -23,7 +31,7 @@ function GenericContainer(props){
                         {props.tableData.map((item,i)=>{
                             return(
                                     <tr key={i}>
-                                        {props.tableHeader.map((header,j)=>{
+                                        {props.tableHeader.map((header:string,j:number)=>{
                                             if(props.haveButton.includes(header)){
                                                 return(
                                                     <>

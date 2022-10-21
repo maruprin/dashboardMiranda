@@ -13,9 +13,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import Menus from "./components/Menus";
 import Bookings from "./pages/Bookings";
 
-type AuthContextProviderProps = {
-  children: React.ElementType
-}
 interface IInitialState {
   auth: boolean;
   userName: string | null;
@@ -46,7 +43,7 @@ interface AppContext {
   authDispatch: React.Dispatch<AuthAction>
 }
 
-const logKey = "log";
+const logKey:string = "log";
 const initialState: AuthState = localStorage.getItem(logKey)
   ? JSON.parse(localStorage.getItem(logKey))
   : { auth: false, userName: null, email: null, id: null };

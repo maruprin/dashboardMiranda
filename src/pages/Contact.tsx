@@ -4,7 +4,11 @@ import { contactItemHaveButton, headersContact, tableHeadersContact } from "../d
 import { fetchContacts, selectContacts } from "../slices/contactSlice";
 import { ButtonViewNote, GenericContainerStyled } from "../styles/styledComponents";
 
-function Contact(props) {
+interface PropsContact {
+    openSideMenu: boolean;
+  }
+
+function Contact(props:PropsContact) {
     const contactsList = useSelector(selectContacts);
     const dispatch = useDispatch();
 
@@ -32,6 +36,7 @@ function Contact(props) {
                         })}
                         </tr>
                         {contactsList.map((item,i)=>{
+                            console.log(contactsList)
                             return(
                                     <tr key={item.id}>
                                         {tableHeadersContact.map((header,j)=>{

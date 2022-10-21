@@ -1,9 +1,13 @@
 import styled from "styled-components";
-import BarchartPrueba from "../components/BarchartPrueba";
 import BarChart from "../components/BarChart";
-import Calendar from "../components/Calendar.tsx";
+import Calendar from "../components/Calendar";
 import chartData from "../data/chartData";
 import { GenericContainerStyled } from "../styles/styledComponents";
+
+interface PropsDashboard {
+  openSideMenu: boolean;
+}
+
 const DashboardContainer = styled.div`
 width: 100%;
 display: flex;
@@ -21,7 +25,7 @@ justify-content: space-around;
     
   }
 `
-function Dashboard(props) {
+function Dashboard(props:PropsDashboard) {
   
   return (
     <GenericContainerStyled className={props.openSideMenu ? "show" : "hide"}>

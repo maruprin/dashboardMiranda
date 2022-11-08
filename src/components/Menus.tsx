@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { AuthContext, MyContext } from "../App";
+import { AuthContext, MyContext } from "../App.tsx";
 import colors from "../styles/colors";
 import icons from "../styles/icons";
 import { Button, Logo } from "../styles/styledComponents";
@@ -147,24 +147,6 @@ const HeaderContainer = styled.header`
   }
 `;
 
-const HeaderLinks = styled(Link)`
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  color: ${colors.hardGreen};
-  //background-color: ${colors.lightGreen};
-  border-radius: 18px;
-  cursor: pointer;
-  padding: 10px;
-  margin: 0 auto;
-  //border: 1px solid;
-  margin-right: 10px;
-  :hover {
-    box-shadow: 0px 4px 4px #00000018;
-    color: ${colors.redLess};
-  }
-`
-
 function Menus(props){
   const [content, setContent] = useState('Travl dashboard');
   const { authState, authDispatch } = useContext(AuthContext); 
@@ -237,9 +219,9 @@ function Menus(props){
       <HeaderContainer sidemenu={props.openSideMenu} >
     
       <div className="header__right">
-      <HeaderLinks to="/contact">{icons.message}</HeaderLinks>
-      <HeaderLinks to="/bookings">{icons.bell}</HeaderLinks>
-      <HeaderLinks onClick={handleLogOut}>{icons.logout}</HeaderLinks>
+          <button type="button">{icons.message}</button>
+          <button type="button">{icons.bell}</button>
+          <button type="button" onClick={handleLogOut}>{icons.logout}</button>
       </div>
       </HeaderContainer>
 
